@@ -20,6 +20,7 @@ div {
   position: absolute;
   display: inline-block;
   border: 5px solid black;
+  font-family: 'American Typewriter', Courier, serif;
 }
 
 h1,
