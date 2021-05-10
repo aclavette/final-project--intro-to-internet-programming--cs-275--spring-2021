@@ -3,36 +3,79 @@ window.onload = () => {
         `background-color: yellow; font-weight: bold;`);
 };
 
-//window.prompt("Enter the size of your diamond as a number.");
-let size = prompt("Enter the size of your diamond as a number.");
-let x = Math.floor(size/2);
-let str = "";
-console.log(size);
-console.log(x);
-document.getElementById("box").innerHTML = str;
-if(size%2 != 0){
-    //odd number function
+let str = ``;
+let inputSize = prompt(`Enter the size of your diamond as a number.`);
+
+//called when user input is an even number
+let evenDiamond = (size) => {
+    let x = size-2;
+
+    //top half of diamond
+    for(i=0; i<=(size/2); i++){
+        if(i==0){
+            for(j=0; j<(size-1); j++)
+                str += ` `;
+            str += `*<br>`;
+        }
+        else{
+            for(j=0; j<x; j++)
+                str += ` `;
+            for(j=0; j<(2*i); j++)
+                str += `* `;
+            str += `<br>`;
+            x-=2;
+        }
+    }
+
+    //bottom half of diamond
+    x=2;
+    for(i=(size/2)-1; i>=0; i--){
+        if(i==0){
+            for(j=0; j<(size-1); j++)
+                str += ` `;
+            str += `*`;
+        }
+        else {
+            for(j=0; j<x; j++)
+                str += ` `;
+            for(j=0; j<(2*i); j++)
+                str += `* `;
+            str+= `<br>`
+            x += 2;
+        }
+    }
+    document.getElementById(`diamond-container`).innerHTML = str;
+}
+
+//called when user input is an odd number
+let oddDiamond = (size) => {
+    let x = Math.floor(size/2);
+
+    //top half of diamond
     for(i=0; i<size; i++){
         for(j=0; j<x; j++)
-            str += " ";
+            str += ` `;
         for(j=0; j<=i; j++)
-            str += "*";
-        str += "<br>";
+            str += `*`;
+        str += `<br>`;
         x--;
         i++;
     }
+
+    //bottom half of diamond
     x=0;
-    for(i=size-2; i>0; i--){
+    for(i=size-2; i>0; i-=2){
         for(j=0; j<x; j++)
-            str+= " ";
+            str+= ` `;
         for(j=0; j<i; j++)
-            str += "*";
-        str += "<br>";
+            str += `*`;
+        str += `<br>`;
         x++;
-        i--;
     }
+    document.getElementById(`diamond-container`).innerHTML = str;
 }
-else {
-    //even number function
-}
-document.getElementById("box").innerHTML = str;
+
+if(inputSize%2 == 0)
+    evenDiamond(inputSize);
+else if(inputSize%2 != 0)
+    oddDiamond(inputSize);
