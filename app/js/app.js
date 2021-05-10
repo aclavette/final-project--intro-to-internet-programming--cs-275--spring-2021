@@ -75,7 +75,28 @@ let oddDiamond = (size) => {
     document.getElementById(`diamond-container`).innerHTML = str;
 }
 
+let curX = 0;
+let tick = 10;
+let direction = 1;
+
+let slide = () => {
+    let diamondWidth = document.getElementById(`diamond-container`).clientWidth;
+    let viewport = window.innerWidth;
+    let freeSpace = viewport - diamondWidth;
+    curX += (direction*tick);
+
+    if(direction==1 && (curX+diamondWidth >= viewport))
+    	direction *= -1;
+    else if (direction==-1 && curX<=0)
+    	direction *= -1;
+
+    document.getElementById(`diamond-container`).style.left = curX + "px";
+}
+
 if(inputSize%2 == 0)
     evenDiamond(inputSize);
 else if(inputSize%2 != 0)
     oddDiamond(inputSize);
+let interval = setInterval(slide, 50);
+console.log(document.getElementById(`diamond-container`).clientWidth);
+console.log(window.innerWidth);

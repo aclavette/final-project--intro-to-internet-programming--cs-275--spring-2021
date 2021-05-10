@@ -8,19 +8,22 @@
 }
 
 body {
+  position: relative;
   background-color: var(--background-color--primary);
   color: var(--color--text);
   font-family: var(--font--reading);
   font-weight: 100;
-  text-align: center;
+  text-align: left;
 }
 
 div {
-  /*float: left;*/
+  text-align: center;
   position: absolute;
   display: inline-block;
   border: 5px solid black;
-  font-family: 'American Typewriter', Courier, serif;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  left: 0;
 }
 
 h1,
