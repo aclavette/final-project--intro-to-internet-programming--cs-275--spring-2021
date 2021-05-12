@@ -4,10 +4,20 @@ window.onload = () => {
 };
 
 let str = ``;
-let inputSize = prompt(`Enter the size of your diamond as a number.`);
+let inputSize;
+
+//fault-tolerant prompting function
+let inquire = () => {
+    let input = prompt(`Enter the size of your diamond as a number.`);
+    if (input%1 != 0)
+        inquire();
+    else
+        inputSize = input;
+}
 
 //called when user input is an even number
 let evenDiamond = (size) => {
+    //x determines the amount of white space on the line before asterisks begin
     let x = size-2;
 
     //top half of diamond
@@ -21,7 +31,7 @@ let evenDiamond = (size) => {
             for(j=0; j<x; j++)
                 str += ` `;
             for(j=0; j<(2*i); j++)
-                str += `* `;
+                    str += `* `;
             str += `<br>`;
             x-=2;
         }
@@ -33,13 +43,13 @@ let evenDiamond = (size) => {
         if(i==0){
             for(j=0; j<(size-1); j++)
                 str += ` `;
-            str += `*`;
+            str += `* `;
         }
         else {
             for(j=0; j<x; j++)
                 str += ` `;
             for(j=0; j<(2*i); j++)
-                str += `* `;
+                    str += `* `;
             str+= `<br>`
             x += 2;
         }
@@ -49,6 +59,7 @@ let evenDiamond = (size) => {
 
 //called when user input is an odd number
 let oddDiamond = (size) => {
+    //x determines the amount of white space on the line before asterisks begin
     let x = Math.floor(size/2);
 
     //top half of diamond
@@ -75,8 +86,11 @@ let oddDiamond = (size) => {
     document.getElementById(`diamond-container`).innerHTML = str;
 }
 
+//diamond's current x-position
 let curX = 0;
+//amount of pixels moved each interval
 let tick = 10;
+//the first direction to move is right(positive number)
 let direction = 1;
 
 let slide = () => {
@@ -85,6 +99,8 @@ let slide = () => {
     let freeSpace = viewport - diamondWidth;
     curX += (direction*tick);
 
+    /*each interval, the direction will turn negative and change directions
+    if the diamond is at the end of the window.*/
     if(direction==1 && (curX+diamondWidth >= viewport))
     	direction *= -1;
     else if (direction==-1 && curX<=0)
@@ -93,10 +109,9 @@ let slide = () => {
     document.getElementById(`diamond-container`).style.left = curX + "px";
 }
 
+inquire();
 if(inputSize%2 == 0)
     evenDiamond(inputSize);
 else if(inputSize%2 != 0)
     oddDiamond(inputSize);
 let interval = setInterval(slide, 50);
-console.log(document.getElementById(`diamond-container`).clientWidth);
-console.log(window.innerWidth);
