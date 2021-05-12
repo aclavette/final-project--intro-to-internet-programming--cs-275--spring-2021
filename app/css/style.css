@@ -24,6 +24,7 @@ div {
   font-family: 'Courier New', monospace;
   font-weight: 700;
   left: 0;
+  white-space: nowrap;
 }
 
 h1,
